@@ -352,7 +352,7 @@ export default {
       return disabled
     },
     toggleGhost (index) {
-      this.filteredGhosts[index].open = !this.filteredGhosts[index].open
+      this.ghostTypes[index].open = !this.ghostTypes[index].open
     },
     clearAll () {
       this.selectedEvidence = []
