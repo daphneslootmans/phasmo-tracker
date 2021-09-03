@@ -1,15 +1,19 @@
 <template>
   <div class="tracker">
     <b-container>
-      <b-row>
-        <b-col>
-          <h1>Welcome back</h1>
+      <b-row align-h="between" align-v="center" class="mb-2">
+        <b-col cols="auto">
+          <h3 class="mb-0">Phasmophobia<br>Evidence Tracker</h3>
+        </b-col>
+        <b-col cols="auto">
+          <b-button variant="outline-dark" @click="clearAll">Clear</b-button>
         </b-col>
       </b-row>
       <b-row>
         <b-col cols="auto">
-          <b-form-row>
+          <b-row no-gutters>
             <b-col>
+              <font-awesome-icon icon="ban" class="text-danger icon-small"></font-awesome-icon>
               <b-form-checkbox-group id="evidence-disabled-group"
                                      v-model="disabledEvidence"
                                      name="disabledEvidence"
@@ -53,6 +57,7 @@
               </b-form-checkbox-group>
             </b-col>
             <b-col>
+              <font-awesome-icon icon="check-circle" class="text-success icon-small"></font-awesome-icon>
               <b-form-checkbox-group id="evidence-group"
                                      v-model="selectedEvidence"
                                      name="evidence"
@@ -102,15 +107,38 @@
                 </b-form-checkbox>
               </b-form-checkbox-group>
             </b-col>
-          </b-form-row>
+          </b-row>
         </b-col>
-        <b-col cols="auto">
+        <b-col>
           <div class="ghost-list">
-            <div v-for="(ghost, index) in filteredGhosts"
-                 :key="'ghost' + index"
+            <transition-group name="slide-up"
+                              tag="div"
+                              appear
             >
-              {{ ghost.name }} {{ ghost.evidence }}
-            </div>
+              <div v-for="(ghost, index) in ghostTypes" v-if="ghost.visible"
+                   :key="'ghost' + index"
+                   class="ghost-list__item"
+              >
+                <b-row @click="toggleGhost(index)" align-h="between" align-v="center">
+                  <b-col cols="auto">
+                    <div class="title">{{ ghost.name }}</div>
+                  </b-col>
+                  <b-col cols="auto">
+                    <font-awesome-icon icon="angle-down" v-if="ghost.open"></font-awesome-icon>
+                    <font-awesome-icon icon="angle-right" v-else></font-awesome-icon>
+                  </b-col>
+                </b-row>
+                <b-collapse :id="'toggle-' + index" v-model="ghost.open">
+                  <div class="evidence-list">
+                  <span :class="['evidence-list__item', {selected: selectedEvidence.includes(type)}]"
+                        v-for="type in ghost.evidence"
+                        :key="type + index"
+                  >{{ evidenceTypes[type].text }}</span>
+                  </div>
+                  <div>{{ ghost.info }}</div>
+                </b-collapse>
+              </div>
+            </transition-group>
           </div>
         </b-col>
       </b-row>
@@ -128,132 +156,192 @@ export default {
           name: 'Banshee',
           evidence: [
             'orb', 'fingerprints', 'dots'
-          ]
+          ],
+          open: true,
+          visible: true
         },
         {
           name: 'Demon',
           evidence: [
             'freezing', 'fingerprints', 'writing'
-          ]
+          ],
+          open: true,
+          visible: true
         },
         {
           name: 'Goryo',
           evidence: [
             'emf', 'fingerprints', 'dots'
-          ]
+          ],
+          open: true,
+          visible: true
         },
         {
           name: 'Hantu',
           evidence: [
-            'orb', 'fingerprints', 'freezing'
-          ]
+            'orb', 'freezing', 'fingerprints',
+          ],
+          open: true,
+          visible: true
         },
         {
           name: 'Jinn',
           evidence: [
-            'emf', 'fingerprints', 'freezing'
-          ]
+            'emf', 'freezing', 'fingerprints'
+          ],
+          open: true,
+          visible: true
         },
         {
           name: 'Mare',
           evidence: [
             'orb', 'box', 'writing'
-          ]
+          ],
+          open: true,
+          visible: true
         },
         {
           name: 'Myling',
           evidence: [
             'emf', 'fingerprints', 'writing'
-          ]
+          ],
+          open: true,
+          visible: true
         },
         {
           name: 'Oni',
           evidence: [
             'emf', 'freezing', 'dots'
-          ]
+          ],
+          open: true,
+          visible: true
         },
         {
           name: 'Phantom',
           evidence: [
             'box', 'fingerprints', 'dots'
-          ]
+          ],
+          open: true,
+          visible: true
         },
         {
           name: 'Poltergeist',
           evidence: [
             'box', 'fingerprints', 'writing'
-          ]
+          ],
+          open: true,
+          visible: true
         },
         {
           name: 'Revenant',
           evidence: [
             'orb', 'freezing', 'writing'
-          ]
+          ],
+          open: true,
+          visible: true
         },
         {
           name: 'Shade',
           evidence: [
             'emf', 'freezing', 'writing'
-          ]
+          ],
+          open: true,
+          visible: true
         },
         {
           name: 'Spirit',
           evidence: [
             'emf', 'box', 'writing'
-          ]
+          ],
+          open: true,
+          visible: true
         },
         {
           name: 'Wraith',
           evidence: [
             'emf', 'box', 'dots'
-          ]
+          ],
+          open: true,
+          visible: true
         },
         {
           name: 'Yokai',
           evidence: [
             'orb', 'box', 'dots'
-          ]
+          ],
+          open: true,
+          visible: true
         },
         {
           name: 'Yurei',
           evidence: [
             'orb', 'freezing', 'dots'
-          ]
+          ],
+          open: true,
+          visible: true
         }
       ],
+      evidenceTypes: {
+        'orb': {
+          text: 'Ghost Orb'
+        },
+        'fingerprints': {
+          text: 'Fingerprints'
+        },
+        'emf': {
+          text: 'EMF 5'
+        },
+        'freezing': {
+          text: 'Freezing'
+        },
+        'dots': {
+          text: 'D.O.T.S.'
+        },
+        'writing': {
+          text: 'Writing'
+        },
+        'box': {
+          text: 'Spirit Box'
+        },
+      },
       selectedEvidence: [],
       disabledEvidence: []
     }
   },
   computed: {
-    filteredGhosts () {
-      let ghosts = []
-      if (this.selectedEvidence.length > 0) {
-        this.ghostTypes.forEach(ghost => {
-          let possible = this.selectedEvidence.every(type => {
-            return ghost.evidence.includes(type)
-          })
-          if (possible && !this.isDisabled(ghost)) ghosts.push(ghost)
-        })
-        return ghosts
-      } else if (this.disabledEvidence.length > 0) {
-        this.ghostTypes.forEach(ghost => {
-          if (!this.isDisabled(ghost)) ghosts.push(ghost)
-        })
-        return ghosts
-      } else return this.ghostTypes
-    },
     possibleEvidence () {
       let evidence = []
-      this.filteredGhosts.forEach(ghost => {
-        ghost.evidence.forEach(type => {
-          if (!evidence.includes(type)) evidence.push(type)
-        })
+      this.ghostTypes.forEach(ghost => {
+        if (ghost.visible) {
+          ghost.evidence.forEach(type => {
+            if (!evidence.includes(type)) evidence.push(type)
+          })
+        }
       })
       return evidence
     }
   },
   methods: {
+    filterGhosts () {
+      if (this.selectedEvidence.length > 0) {
+        this.ghostTypes.forEach(ghost => {
+          let possible = this.selectedEvidence.every(type => {
+            return ghost.evidence.includes(type)
+          })
+          if (possible && !this.isDisabled(ghost)) this.$set(ghost, 'visible', true)
+          else this.$set(ghost, 'visible', false)
+        })
+      } else if (this.disabledEvidence.length > 0) {
+        this.ghostTypes.forEach(ghost => {
+          if (!this.isDisabled(ghost)) this.$set(ghost, 'visible', true)
+          else this.$set(ghost, 'visible', false)
+        })
+      } else {
+        this.ghostTypes.forEach(ghost => {
+          this.$set(ghost, 'visible', true)
+        })
+      }
+    },
     isDisabled (ghost) {
       let disabled = false
       if (this.disabledEvidence.length > 0) {
@@ -262,11 +350,69 @@ export default {
         })
       }
       return disabled
+    },
+    toggleGhost (index) {
+      this.filteredGhosts[index].open = !this.filteredGhosts[index].open
+    },
+    clearAll () {
+      this.selectedEvidence = []
+      this.disabledEvidence = []
+    }
+  },
+  watch: {
+    selectedEvidence () {
+      this.filterGhosts()
+    },
+    disabledEvidence () {
+      this.filterGhosts()
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
+.icon-small {
+  font-size: 16px;
+}
 
+.ghost-list {
+  display: flex;
+  flex-flow: column nowrap;
+
+  &__item {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #d6d6d6;
+    transition: all 400ms;
+  }
+
+  .title {
+    font-weight: 600;
+  }
+}
+
+.evidence-list {
+  display: flex;
+  flex-flow: row wrap;
+
+  &__item {
+    font-size: 14px;
+    padding: 0 4px;
+    //border: 1px solid transparent;
+
+    &:not(:last-child) {
+      margin-right: 5px;
+    }
+
+    &.selected {
+      border-color: #C9F4A5;
+      background: rgba(#C9F4A5, 0.5);
+    }
+  }
+}
+
+.collapsed > .hide-closed,
+.not-collapsed > .hide-open {
+  display: none;
+}
 </style>
