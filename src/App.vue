@@ -28,7 +28,7 @@ $disabled-color: #dc3545;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #333333;
+  color: #0a0a0a;
   margin-top: 20px;
 }
 
