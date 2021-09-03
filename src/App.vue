@@ -17,6 +17,8 @@ export default {
 
 <style lang="scss">
 $enable-rounded: false;
+$checked-color: #28a745;
+$disabled-color: #dc3545;
 
 @import '~bootstrap/scss/bootstrap.scss';
 @import '~bootstrap-vue/src/index.scss';
@@ -43,5 +45,27 @@ $enable-rounded: false;
 }
 .slide-up-leave-active {
   position: absolute;
+}
+
+#evidence-group {
+  .custom-control-input:checked ~ .custom-control-label::after {
+
+  }
+
+  .custom-control-input:checked ~ .custom-control-label::before {
+    border-color: $checked-color;
+    background-color: $checked-color;
+  }
+}
+
+#evidence-disabled-group {
+  .custom-control-input:checked ~ .custom-control-label::after {
+
+  }
+
+  .custom-control-input:checked ~ .custom-control-label::before {
+    border-color: $disabled-color;
+    background-color: $disabled-color;
+  }
 }
 </style>

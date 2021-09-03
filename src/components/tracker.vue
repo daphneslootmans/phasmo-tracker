@@ -371,6 +371,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+$checked-color: #C9F4A5;
+
 .icon-small {
   font-size: 16px;
 }
@@ -405,8 +407,8 @@ export default {
     }
 
     &.selected {
-      border-color: #C9F4A5;
-      background: rgba(#C9F4A5, 0.5);
+      border-color: $checked-color;
+      background: rgba($checked-color, 0.5);
     }
   }
 }
