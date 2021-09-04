@@ -1,12 +1,9 @@
 <template>
   <div class="tracker">
     <b-container>
-      <b-row align-h="between" align-v="center" class="mb-2">
+
+      <b-row align-h="end" align-v="center" class="mb-2">
         <b-col cols="auto">
-          <h3 class="mb-0">Phasmophobia<br>Evidence Tracker</h3>
-        </b-col>
-        <b-col cols="auto">
-          <b-button variant="outline-dark" @click="clearAll">Clear</b-button>
         </b-col>
       </b-row>
       <b-row>
@@ -108,8 +105,13 @@
               </b-form-checkbox-group>
             </b-col>
           </b-row>
+          <b-row class="mt-2">
+            <b-col cols="auto">
+              <b-button variant="outline-dark" size="sm" @click="clearAll">Clear</b-button>
+            </b-col>
+          </b-row>
         </b-col>
-        <b-col>
+        <b-col col lg="4">
           <div class="ghost-list">
             <transition-group name="slide-up"
                               tag="div"
@@ -371,7 +373,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$checked-color: #C9F4A5;
+$checked-color: #28a745;
+
+.tracker {
+  padding-top: 15px;
+}
 
 .icon-small {
   font-size: 16px;
@@ -384,8 +390,11 @@ $checked-color: #C9F4A5;
   &__item {
     margin-bottom: 0.5rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid #d6d6d6;
     transition: all 400ms;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #999C9F;
+    }
   }
 
   .title {
@@ -400,7 +409,6 @@ $checked-color: #C9F4A5;
   &__item {
     font-size: 14px;
     padding: 0 4px;
-    //border: 1px solid transparent;
 
     &:not(:last-child) {
       margin-right: 5px;

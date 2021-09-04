@@ -10,6 +10,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     version: 'v0.1',
+    lightMode: false,
+    ghostInfo: true
   },
   getters,
   mutations,
