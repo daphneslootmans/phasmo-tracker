@@ -125,18 +125,23 @@
                   <b-col cols="auto">
                     <div class="title">{{ ghost.name }}</div>
                   </b-col>
-                  <b-col cols="auto">
-                    <font-awesome-icon icon="angle-down" v-if="ghost.open"></font-awesome-icon>
-                    <font-awesome-icon icon="angle-right" v-else></font-awesome-icon>
-                  </b-col>
+<!--                  <b-col cols="auto">-->
+<!--                    <font-awesome-icon icon="angle-down" v-if="ghost.open"></font-awesome-icon>-->
+<!--                    <font-awesome-icon icon="angle-right" v-else></font-awesome-icon>-->
+<!--                  </b-col>-->
                 </b-row>
-                <b-collapse :id="'toggle-' + index" v-model="ghost.open">
-                  <div class="evidence-list">
+                <b-row>
+                  <b-col>
+                    <div class="evidence-list">
                   <span :class="['evidence-list__item', {selected: selectedEvidence.includes(type)}]"
                         v-for="type in ghost.evidence"
                         :key="type + index"
                   >{{ evidenceTypes[type].text }}</span>
-                  </div>
+                    </div>
+                  </b-col>
+                </b-row>
+                <b-collapse :id="'toggle-' + index" v-model="ghost.open">
+
                   <div>{{ ghost.info }}</div>
                 </b-collapse>
               </div>
@@ -399,6 +404,7 @@ $checked-color: #28a745;
 
   .title {
     font-weight: 600;
+    padding-left: 4px;
   }
 }
 
