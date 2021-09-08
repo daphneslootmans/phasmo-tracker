@@ -57,15 +57,16 @@ body {
   position: absolute;
 }
 
-.custom-control-label::before {
-  background-color: #c1c3c5;
+.custom-control-label {
+  font-size: 16px;
+  line-height: 1.8;
+
+  &::before {
+    background-color: #c1c3c5;
+  }
 }
 
 #evidence-group {
-  .custom-control-input:checked ~ .custom-control-label::after {
-
-  }
-
   .custom-control-input:checked ~ .custom-control-label::before {
     border-color: $checked-color;
     background-color: $checked-color;
@@ -73,13 +74,13 @@ body {
 }
 
 #evidence-disabled-group {
-  .custom-control-input:checked ~ .custom-control-label::after {
-
-  }
-
   .custom-control-input:checked ~ .custom-control-label::before {
     border-color: $disabled-color;
     background-color: $disabled-color;
   }
+}
+
+.custom-control-input[disabled] ~ .custom-control-label::before, .custom-control-input:disabled ~ .custom-control-label::before {
+  background-color: darken(#c1c3c5, 20%);
 }
 </style>

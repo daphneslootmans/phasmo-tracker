@@ -15,6 +15,7 @@
                                      v-model="disabledEvidence"
                                      name="disabledEvidence"
                                      stacked
+                                     size="lg"
               >
                 <b-form-checkbox
                     value="dots"
@@ -59,6 +60,7 @@
                                      v-model="selectedEvidence"
                                      name="evidence"
                                      stacked
+                                     size="lg"
               >
                 <b-form-checkbox
                     value="dots"
@@ -106,8 +108,8 @@
             </b-col>
           </b-row>
           <b-row class="mt-2">
-            <b-col cols="auto">
-              <b-button variant="outline-dark" size="sm" @click="clearAll">Clear</b-button>
+            <b-col cols="12">
+              <b-button variant="outline-light" size="sm" class="w-100" @click="clearAll">Clear</b-button>
             </b-col>
           </b-row>
         </b-col>
