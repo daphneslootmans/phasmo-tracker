@@ -64,13 +64,13 @@
               >
                 <b-form-checkbox
                     value="dots"
-                    :disabled="disabledEvidence.includes('dots') || selectedEvidence.includes('writing') || (selectedEvidence.length === 3 && !selectedEvidence.includes('dots')) || !possibleEvidence.includes('dots')"
+                    :disabled="disabledEvidence.includes('dots') || (selectedEvidence.length === 3 && !selectedEvidence.includes('dots')) || !possibleEvidence.includes('dots')"
                 >
                   D.O.T.S.
                 </b-form-checkbox>
                 <b-form-checkbox
                     value="emf"
-                    :disabled="disabledEvidence.includes('emf') || selectedEvidence.includes('orb') || (selectedEvidence.length === 3 && !selectedEvidence.includes('emf')) || !possibleEvidence.includes('emf')"
+                    :disabled="disabledEvidence.includes('emf') || (selectedEvidence.length === 3 && !selectedEvidence.includes('emf')) || !possibleEvidence.includes('emf')"
                 >
                   EMF 5
                 </b-form-checkbox>
@@ -82,25 +82,25 @@
                 </b-form-checkbox>
                 <b-form-checkbox
                     value="freezing"
-                    :disabled=" disabledEvidence.includes('freezing') ||selectedEvidence.includes('box') || (selectedEvidence.length === 3 && !selectedEvidence.includes('freezing')) || !possibleEvidence.includes('freezing')"
+                    :disabled=" disabledEvidence.includes('freezing') || (selectedEvidence.length === 3 && !selectedEvidence.includes('freezing')) || !possibleEvidence.includes('freezing')"
                 >
                   Freezing
                 </b-form-checkbox>
                 <b-form-checkbox
                     value="orb"
-                    :disabled="disabledEvidence.includes('orb') || selectedEvidence.includes('emf') || (selectedEvidence.length === 3 && !selectedEvidence.includes('orb')) || !possibleEvidence.includes('orb')"
+                    :disabled="disabledEvidence.includes('orb') || (selectedEvidence.length === 3 && !selectedEvidence.includes('orb')) || !possibleEvidence.includes('orb')"
                 >
                   Ghost Orb
                 </b-form-checkbox>
                 <b-form-checkbox
                     value="writing"
-                    :disabled="selectedEvidence.includes('dots') || (selectedEvidence.length === 3 && !selectedEvidence.includes('writing')) || !possibleEvidence.includes('writing')"
+                    :disabled="(selectedEvidence.length === 3 && !selectedEvidence.includes('writing')) || !possibleEvidence.includes('writing')"
                 >
                   Writing
                 </b-form-checkbox>
                 <b-form-checkbox
                     value="box"
-                    :disabled="disabledEvidence.includes('box') || selectedEvidence.includes('freezing') || (selectedEvidence.length === 3 && !selectedEvidence.includes('box')) || !possibleEvidence.includes('box')"
+                    :disabled="disabledEvidence.includes('box') || (selectedEvidence.length === 3 && !selectedEvidence.includes('box')) || !possibleEvidence.includes('box')"
                 >
                   Spirit Box
                 </b-form-checkbox>
@@ -217,10 +217,26 @@ export default {
           open: true,
           visible: true
         },
+          {
+          name: 'Obake',
+          evidence: [
+            'emf', 'fingerprints', 'orb'
+          ],
+          open: true,
+          visible: true
+        },
         {
           name: 'Oni',
           evidence: [
             'emf', 'freezing', 'dots'
+          ],
+          open: true,
+          visible: true
+        },
+          {
+          name: 'Onryo',
+          evidence: [
+            'orb', 'freezing', 'box'
           ],
           open: true,
           visible: true
@@ -261,6 +277,14 @@ export default {
           name: 'Spirit',
           evidence: [
             'emf', 'box', 'writing'
+          ],
+          open: true,
+          visible: true
+        },
+          {
+          name: 'The Twins',
+          evidence: [
+            'emf', 'freezing', 'box'
           ],
           open: true,
           visible: true
